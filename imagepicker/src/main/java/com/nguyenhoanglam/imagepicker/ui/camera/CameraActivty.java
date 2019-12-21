@@ -4,11 +4,12 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.view.View;
+import android.view.WindowManager;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import android.view.View;
-import android.view.WindowManager;
 
 import com.nguyenhoanglam.imagepicker.R;
 import com.nguyenhoanglam.imagepicker.helper.CameraHelper;
@@ -80,7 +81,12 @@ public class CameraActivty extends AppCompatActivity implements CameraView {
     }
 
     private void captureImage() {
-        if (!CameraHelper.checkCameraAvailability(this)) {
+        if (config.isAcceptImage() && !CameraHelper.checkCameraAvailability(this)) {
+            finish();
+            return;
+        }
+
+        if (config.isAcceptVideo() && !CameraHelper.checkVideoCameraAvailability(this)) {
             finish();
             return;
         }
@@ -190,6 +196,7 @@ public class CameraActivty extends AppCompatActivity implements CameraView {
             setResult(RESULT_CANCELED, new Intent());
             finish();
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 

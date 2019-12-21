@@ -20,17 +20,46 @@ import java.util.List;
 
 /**
  * Created by hoanglam on 7/31/16.
+ * Updated by kftse on 21/12/19.
  */
-public class ImageHelper {
 
-    private static final String TAG = "ImageHelper";
+public class FileHelper {
+
+    private static final String TAG = "FileHelper";
+
+    public static File createVideoFile(SavePath savePath) {
+        // External sdcard location
+        final String path = savePath.getPath();
+        File mediaStorageDir = savePath.isFullPath()
+                ? new File(path)
+                : new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), path);
+
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.d(TAG, "Oops! Failed create " + path);
+                return null;
+            }
+        }
+
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String videoFileName = "MOV_" + timeStamp;
+
+        File videoFile = null;
+        try {
+            videoFile = File.createTempFile(videoFileName, ".mp4", mediaStorageDir);
+        } catch (IOException e) {
+            Log.d(TAG, "Oops! Failed create " + videoFileName + " file");
+        }
+        return videoFile;
+    }
 
     public static File createImageFile(SavePath savePath) {
         // External sdcard location
         final String path = savePath.getPath();
         File mediaStorageDir = savePath.isFullPath()
                 ? new File(path)
-                : new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), path);
+                : new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), path);
 
         // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists()) {
@@ -82,7 +111,7 @@ public class ImageHelper {
     }
 
     public static boolean isGifFormat(Image image) {
-        String extension = image.getPath().substring(image.getPath().lastIndexOf(".") + 1, image.getPath().length());
+        String extension = image.getPath().substring(image.getPath().lastIndexOf(".") + 1);
         return extension.equalsIgnoreCase("gif");
     }
 

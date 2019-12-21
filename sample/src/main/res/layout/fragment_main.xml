@@ -7,17 +7,16 @@
     android:padding="@dimen/spacing">
 
     <Button
-        android:id="@+id/button_pick_image"
+        android:id="@+id/button_start_picker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="@dimen/spacing"
-        android:text="PICK IMAGE" />
+        android:text="@string/start_picker" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/config_container" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

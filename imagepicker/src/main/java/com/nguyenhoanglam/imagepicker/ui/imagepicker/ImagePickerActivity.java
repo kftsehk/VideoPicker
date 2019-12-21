@@ -9,13 +9,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.provider.MediaStore;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
+
 
 import com.nguyenhoanglam.imagepicker.R;
 import com.nguyenhoanglam.imagepicker.helper.CameraHelper;
@@ -104,8 +108,11 @@ public class ImagePickerActivity extends AppCompatActivity implements ImagePicke
         if (config.isKeepScreenOn()) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
-
         setContentView(R.layout.imagepicker_activity_picker);
+        if (config.isAcceptVideo()) {
+            ((AppCompatImageView) findViewById(R.id.image_toolbar_camera))
+                    .setImageResource(R.drawable.imagepicker_ic_videocam);
+        }
 
         setupView();
         setupComponents();

@@ -25,7 +25,7 @@
                 android:layout_marginBottom="@dimen/spacing"
                 android:checked="true"
                 android:switchPadding="@dimen/spacing"
-                android:text="Folder Mode" />
+                android:text="@string/folder_mode" />
 
             <Switch
                 android:id="@+id/switch_multiple_mode"
@@ -34,7 +34,7 @@
                 android:layout_marginBottom="@dimen/spacing"
                 android:checked="true"
                 android:switchPadding="@dimen/spacing"
-                android:text="Multiple Mode" />
+                android:text="@string/multiple_mode" />
 
             <Switch
                 android:id="@+id/switch_camera_only"
@@ -42,22 +42,37 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing"
                 android:switchPadding="@dimen/spacing"
-                android:text="Camera Only" />
+                android:text="@string/camera_only" />
 
+            <Switch
+                android:id="@+id/switch_accept_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing"
+                android:switchPadding="@dimen/spacing"
+                android:text="@string/accept_image" />
+
+            <Switch
+                android:id="@+id/switch_accept_video"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing"
+                android:switchPadding="@dimen/spacing"
+                android:text="@string/accept_video" />
 
             <Button
-                android:id="@+id/button_pick_image"
+                android:id="@+id/button_start_picker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="PICK IMAGE" />
+                android:text="@string/start_picker" />
 
             <Button
                 android:id="@+id/button_launch_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="LAUNCH FRAGMENT" />
+                android:text="@string/launch_fragment" />
 
         </LinearLayout>
     </ScrollView>

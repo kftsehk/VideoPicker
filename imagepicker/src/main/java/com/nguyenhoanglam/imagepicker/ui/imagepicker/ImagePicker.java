@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+
 import androidx.fragment.app.Fragment;
 
 import com.nguyenhoanglam.imagepicker.R;
@@ -146,6 +147,16 @@ public class ImagePicker {
 
         public Builder setBackgroundColor(String backgroundColor) {
             config.setBackgroundColor(backgroundColor);
+            return this;
+        }
+
+        public Builder setAcceptImage(boolean isAcceptImage) {
+            config.setAcceptImage(isAcceptImage);
+            return this;
+        }
+
+        public Builder setAcceptVideo(boolean isAcceptVideo) {
+            config.setAcceptVideo(isAcceptVideo);
             return this;
         }
 

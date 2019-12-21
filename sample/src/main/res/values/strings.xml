@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">ImagePicker</string>
+    <string name="accept_image">Accept Image</string>
+    <string name="accept_video">Accept Video</string>
+    <string name="camera_only">Camera Only</string>
+    <string name="folder_mode">Folder Mode</string>
+    <string name="multiple_mode">Multiple Mode</string>
+    <string name="start_picker">START PICKER</string>
+    <string name="launch_fragment">LAUNCH FRAGMENT</string>
 </resources>

@@ -7,14 +7,15 @@ package com.nguyenhoanglam.sample;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.nguyenhoanglam.imagepicker.model.Config;
 import com.nguyenhoanglam.imagepicker.model.Image;
@@ -31,9 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private Switch folderModeSwitch;
     private Switch multipleModeSwitch;
     private Switch cameraOnlySwitch;
-    private Button pickImageButton;
-    private Button launchFragmentButton;
-    private RecyclerView recyclerView;
+    private Switch acceptImageSwitch;
+    private Switch acceptVideoSwitch;
 
     private ImageAdapter adapter;
     private ArrayList<Image> images = new ArrayList<>();
@@ -46,12 +46,40 @@ public class MainActivity extends AppCompatActivity {
         folderModeSwitch = findViewById(R.id.switch_folder_mode);
         multipleModeSwitch = findViewById(R.id.switch_multiple_mode);
         cameraOnlySwitch = findViewById(R.id.switch_camera_only);
-        pickImageButton = findViewById(R.id.button_pick_image);
-        launchFragmentButton = findViewById(R.id.button_launch_fragment);
-        recyclerView = findViewById(R.id.recyclerView);
+        acceptImageSwitch = findViewById(R.id.switch_accept_image);
+        acceptVideoSwitch = findViewById(R.id.switch_accept_video);
+        Button startPickerButton = findViewById(R.id.button_start_picker);
+        Button launchFragmentButton = findViewById(R.id.button_launch_fragment);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
 
-
-        pickImageButton.setOnClickListener(new View.OnClickListener() {
+        acceptImageSwitch.setChecked(true);
+        acceptImageSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean acceptImage = acceptImageSwitch.isChecked();
+                boolean acceptVideo = acceptVideoSwitch.isChecked();
+                if (!acceptVideo && !acceptImage) {
+                    acceptVideoSwitch.setChecked(true);
+                }
+                if (acceptVideo && acceptImage) {
+                    acceptVideoSwitch.setChecked(false);
+                }
+            }
+        });
+        acceptVideoSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean acceptImage = acceptImageSwitch.isChecked();
+                boolean acceptVideo = acceptVideoSwitch.isChecked();
+                if (!acceptVideo && !acceptImage) {
+                    acceptImageSwitch.setChecked(true);
+                }
+                if (acceptVideo && acceptImage) {
+                    acceptImageSwitch.setChecked(false);
+                }
+            }
+        });
+        startPickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 start();
@@ -74,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
         boolean folderMode = folderModeSwitch.isChecked();
         boolean multipleMode = multipleModeSwitch.isChecked();
         boolean cameraOnly = cameraOnlySwitch.isChecked();
+        boolean acceptImage = acceptImageSwitch.isChecked();
+        boolean acceptVideo = acceptVideoSwitch.isChecked();
 
         ImagePicker.with(this)
                 .setFolderMode(folderMode)
@@ -81,6 +111,8 @@ public class MainActivity extends AppCompatActivity {
                 .setFolderTitle("Album")
                 .setMultipleMode(multipleMode)
                 .setSelectedImages(images)
+                .setAcceptImage(acceptImage)
+                .setAcceptVideo(acceptVideo)
                 .setMaxSize(10)
                 .setBackgroundColor("#212121")
                 .setAlwaysShowDoneButton(true)
@@ -94,6 +126,8 @@ public class MainActivity extends AppCompatActivity {
         boolean folderMode = folderModeSwitch.isChecked();
         boolean multipleMode = multipleModeSwitch.isChecked();
         boolean cameraOnly = cameraOnlySwitch.isChecked();
+        boolean acceptImage = acceptImageSwitch.isChecked();
+        boolean acceptVideo = acceptVideoSwitch.isChecked();
 
         Config config = new Config();
         config.setCameraOnly(cameraOnly);
@@ -106,6 +140,8 @@ public class MainActivity extends AppCompatActivity {
         config.setImageTitle(getString(com.nguyenhoanglam.imagepicker.R.string.imagepicker_title_image));
         config.setSavePath(SavePath.DEFAULT);
         config.setSelectedImages(new ArrayList<Image>());
+        config.setAcceptImage(acceptImage);
+        config.setAcceptVideo(acceptVideo);
 
         getSupportFragmentManager()
                 .beginTransaction()

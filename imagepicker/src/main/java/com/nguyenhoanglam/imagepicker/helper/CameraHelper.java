@@ -9,12 +9,25 @@ import com.nguyenhoanglam.imagepicker.R;
 
 /**
  * Created by hoanglam on 8/17/17.
+ * Updated by kftse on 21/12/19.
  */
 
 public class CameraHelper {
 
     public static boolean checkCameraAvailability(Context context) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        boolean isAvailable = intent.resolveActivity(context.getPackageManager()) != null;
+
+        if (!isAvailable) {
+            Context appContext = context.getApplicationContext();
+            Toast.makeText(appContext,
+                    appContext.getString(R.string.imagepicker_error_no_camera), Toast.LENGTH_LONG).show();
+        }
+        return isAvailable;
+    }
+
+    public static boolean checkVideoCameraAvailability(Context context) {
+        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         boolean isAvailable = intent.resolveActivity(context.getPackageManager()) != null;
 
         if (!isAvailable) {

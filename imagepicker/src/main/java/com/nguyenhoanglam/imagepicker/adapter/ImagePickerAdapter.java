@@ -9,7 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.nguyenhoanglam.imagepicker.R;
-import com.nguyenhoanglam.imagepicker.helper.ImageHelper;
+import com.nguyenhoanglam.imagepicker.helper.FileHelper;
 import com.nguyenhoanglam.imagepicker.listener.OnImageClickListener;
 import com.nguyenhoanglam.imagepicker.listener.OnImageSelectionListener;
 import com.nguyenhoanglam.imagepicker.model.Image;
@@ -53,7 +53,7 @@ public class ImagePickerAdapter extends BaseRecyclerViewAdapter<ImagePickerAdapt
 
         getImageLoader().loadImage(image.getPath(), viewHolder.image);
 
-        viewHolder.gifIndicator.setVisibility(ImageHelper.isGifFormat(image) ? View.VISIBLE : View.GONE);
+        viewHolder.gifIndicator.setVisibility(FileHelper.isGifFormat(image) ? View.VISIBLE : View.GONE);
         viewHolder.alphaView.setAlpha(isSelected ? 0.5f : 0.0f);
         viewHolder.container.setForeground(isSelected
                 ? ContextCompat.getDrawable(getContext(), R.drawable.imagepicker_ic_selected)

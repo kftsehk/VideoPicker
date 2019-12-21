@@ -3,14 +3,15 @@ package com.nguyenhoanglam.sample;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.nguyenhoanglam.imagepicker.model.Config;
 import com.nguyenhoanglam.imagepicker.model.Image;
@@ -31,7 +32,6 @@ public class MainFragment extends Fragment {
     private Button pickImageButton;
 
     private Config config;
-    ;
     private ImageAdapter adapter;
     private ArrayList<Image> images = new ArrayList<>();
 
@@ -62,7 +62,7 @@ public class MainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = view.findViewById(R.id.recyclerView);
-        pickImageButton = view.findViewById(R.id.button_pick_image);
+        pickImageButton = view.findViewById(R.id.button_start_picker);
 
         pickImageButton.setOnClickListener(new View.OnClickListener() {
             @Override

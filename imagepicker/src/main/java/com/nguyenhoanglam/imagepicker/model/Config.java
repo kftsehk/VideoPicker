@@ -9,13 +9,14 @@ import java.util.ArrayList;
 
 /**
  * Created by hoanglam on 8/11/17.
+ * Updated by kftse on 21/12/19.
  */
 
 
 public class Config implements Parcelable {
 
-    public static final String EXTRA_CONFIG = "ImagePickerConfig";
-    public static final String EXTRA_IMAGES = "ImagePickerImages";
+    public static final String EXTRA_CONFIG = "MediaPickerConfig";
+    public static final String EXTRA_IMAGES = "MediaPickerMedia";
 
 
     public static final int RC_PICK_IMAGES = 100;
@@ -42,6 +43,8 @@ public class Config implements Parcelable {
     private String toolbarIconColor;
     private String progressBarColor;
     private String backgroundColor;
+    private boolean isAcceptImage;
+    private boolean isAcceptVideo;
     private boolean isCameraOnly;
     private boolean isMultipleMode;
     private boolean isFolderMode;
@@ -57,6 +60,7 @@ public class Config implements Parcelable {
     private int requestCode;
     private ArrayList<Image> selectedImages;
 
+    private final String UNSUPPORTED_OPERATION_CAMERA_ONLY_TWO_MEDIA_TYPE = "In camera only mode, only one media type can be accepted.";
 
     public Config() {
     }
@@ -68,6 +72,8 @@ public class Config implements Parcelable {
         this.toolbarIconColor = in.readString();
         this.progressBarColor = in.readString();
         this.backgroundColor = in.readString();
+        this.isAcceptImage = in.readByte() != 0;
+        this.isAcceptVideo = in.readByte() != 0;
         this.isCameraOnly = in.readByte() != 0;
         this.isMultipleMode = in.readByte() != 0;
         this.isFolderMode = in.readByte() != 0;
@@ -148,6 +154,26 @@ public class Config implements Parcelable {
 
     public void setBackgroundColor(String backgroundColor) {
         this.backgroundColor = backgroundColor;
+    }
+
+    public boolean isAcceptImage() {
+        return isAcceptImage;
+    }
+
+    public void setAcceptImage(boolean acceptImage) {
+        if (acceptImage && isAcceptVideo)
+            throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_CAMERA_ONLY_TWO_MEDIA_TYPE);
+        isAcceptImage = acceptImage;
+    }
+
+    public boolean isAcceptVideo() {
+        return isAcceptVideo;
+    }
+
+    public void setAcceptVideo(boolean acceptVideo) {
+        if (acceptVideo && isAcceptImage)
+            throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_CAMERA_ONLY_TWO_MEDIA_TYPE);
+        isAcceptVideo = acceptVideo;
     }
 
     public boolean isCameraOnly() {
@@ -275,6 +301,8 @@ public class Config implements Parcelable {
         dest.writeString(this.toolbarIconColor);
         dest.writeString(this.progressBarColor);
         dest.writeString(this.backgroundColor);
+        dest.writeByte(this.isAcceptImage ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.isAcceptVideo ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isCameraOnly ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isMultipleMode ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isFolderMode ? (byte) 1 : (byte) 0);
