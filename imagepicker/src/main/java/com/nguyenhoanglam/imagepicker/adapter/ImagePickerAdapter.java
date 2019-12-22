@@ -1,8 +1,10 @@
 package com.nguyenhoanglam.imagepicker.adapter;
 
 import android.content.Context;
+
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -53,7 +55,7 @@ public class ImagePickerAdapter extends BaseRecyclerViewAdapter<ImagePickerAdapt
 
         getImageLoader().loadImage(image.getPath(), viewHolder.image);
 
-        viewHolder.gifIndicator.setVisibility(FileHelper.isGifFormat(image) ? View.VISIBLE : View.GONE);
+        viewHolder.gifIndicator.setVisibility(FileHelper.isVideoFormat(image) ? View.VISIBLE : View.GONE);
         viewHolder.alphaView.setAlpha(isSelected ? 0.5f : 0.0f);
         viewHolder.container.setForeground(isSelected
                 ? ContextCompat.getDrawable(getContext(), R.drawable.imagepicker_ic_selected)
@@ -151,7 +153,7 @@ public class ImagePickerAdapter extends BaseRecyclerViewAdapter<ImagePickerAdapt
             container = (FrameLayout) itemView;
             image = itemView.findViewById(R.id.image_thumbnail);
             alphaView = itemView.findViewById(R.id.view_alpha);
-            gifIndicator = itemView.findViewById(R.id.gif_indicator);
+            gifIndicator = itemView.findViewById(R.id.vid_indicator);
 
         }
 

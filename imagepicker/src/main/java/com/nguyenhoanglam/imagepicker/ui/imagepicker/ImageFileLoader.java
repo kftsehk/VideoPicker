@@ -18,14 +18,19 @@ import java.util.concurrent.Executors;
 
 /**
  * Created by hoanglam on 8/17/17.
+ * Updated by kftse on 21/12/19.
  */
 
 public class ImageFileLoader {
 
-    private final String[] projection = new String[]{MediaStore.Images.Media._ID
+    private final String[] imageProjection = new String[]{MediaStore.Images.Media._ID
             , MediaStore.Images.Media.DISPLAY_NAME
             , MediaStore.Images.Media.DATA
             , MediaStore.Images.Media.BUCKET_DISPLAY_NAME};
+    private final String[] videoProjection = new String[]{MediaStore.Video.Media._ID
+            , MediaStore.Video.Media.DISPLAY_NAME
+            , MediaStore.Video.Media.DATA
+            , MediaStore.Video.Media.BUCKET_DISPLAY_NAME};
 
     private Context context;
     private ExecutorService executorService;
@@ -45,8 +50,8 @@ public class ImageFileLoader {
         }
     }
 
-    public void loadDeviceImages(boolean isFolderMode, OnImageLoaderListener listener) {
-        getExecutorService().execute(new ImageLoadRunnable(isFolderMode, listener));
+    public void loadDeviceImages(boolean isFolderMode, boolean isAcceptVideo, OnImageLoaderListener listener) {
+        getExecutorService().execute(new ImageLoadRunnable(isFolderMode, isAcceptVideo, listener));
     }
 
     public void abortLoadImages() {
@@ -66,17 +71,28 @@ public class ImageFileLoader {
     private class ImageLoadRunnable implements Runnable {
 
         private boolean isFolderMode;
+        private boolean isAcceptVideo;
         private OnImageLoaderListener listener;
 
-        public ImageLoadRunnable(boolean isFolderMode, OnImageLoaderListener listener) {
+        public ImageLoadRunnable(boolean isFolderMode, boolean isAcceptVideo, OnImageLoaderListener listener) {
             this.isFolderMode = isFolderMode;
+            this.isAcceptVideo = isAcceptVideo;
             this.listener = listener;
         }
 
         @Override
         public void run() {
-            Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection,
-                    null, null, MediaStore.Images.Media.DATE_ADDED);
+            Cursor cursor;
+            String[] projection;
+            if (isAcceptVideo) {
+                projection = videoProjection;
+                cursor = context.getContentResolver().query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, projection,
+                        null, null, MediaStore.Video.Media.DATE_ADDED);
+            } else {
+                projection = imageProjection;
+                cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection,
+                        null, null, MediaStore.Images.Media.DATE_ADDED);
+            }
 
             if (cursor == null) {
                 listener.onFailed(new NullPointerException());

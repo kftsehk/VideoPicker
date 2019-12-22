@@ -22,6 +22,7 @@ import java.util.List;
 
 /**
  * Created by hoanglam on 8/17/17.
+ * Updated by kftse on 21/12/19.
  */
 
 public class ImagePickerPresenter extends BasePresenter<ImagePickerView> {
@@ -38,11 +39,11 @@ public class ImagePickerPresenter extends BasePresenter<ImagePickerView> {
         imageLoader.abortLoadImages();
     }
 
-    public void loadImages(boolean isFolderMode) {
+    public void loadImages(boolean isFolderMode, boolean isAcceptVideo) {
         if (!isViewAttached()) return;
 
         getView().showLoading(true);
-        imageLoader.loadDeviceImages(isFolderMode, new OnImageLoaderListener() {
+        imageLoader.loadDeviceImages(isFolderMode, isAcceptVideo, new OnImageLoaderListener() {
             @Override
             public void onImageLoaded(final List<Image> images, final List<Folder> folders) {
                 handler.post(new Runnable() {

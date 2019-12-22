@@ -17,16 +17,15 @@
         android:layout_height="match_parent"
         android:background="@color/imagepicker_black" />
 
-    <TextView
-        android:id="@+id/gif_indicator"
-        style="@style/imagepicker_TextSmall"
-        android:layout_gravity="bottom"
-        android:background="@color/imagepicker_black_alpha_50"
-        android:paddingBottom="@dimen/imagepicker_padding_small"
-        android:paddingLeft="@dimen/imagepicker_padding_large"
-        android:paddingRight="@dimen/imagepicker_padding_large"
+    <ImageView
+        android:id="@+id/vid_indicator"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom|end"
+        android:outlineSpotShadowColor="#000000"
+        android:paddingLeft="@dimen/imagepicker_padding_small"
         android:paddingTop="@dimen/imagepicker_padding_small"
-        android:text="@string/imagepicker_text_gif"
-        android:textColor="@color/imagepicker_white"
-        android:visibility="visible" />
+        android:paddingRight="@dimen/imagepicker_padding_small"
+        android:paddingBottom="@dimen/imagepicker_padding_small"
+        android:src="@drawable/ic_theaters_24px" />
 </com.nguyenhoanglam.imagepicker.widget.SquareFrameLayout>

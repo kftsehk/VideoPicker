@@ -41,6 +41,7 @@ import java.util.List;
 
 /**
  * Created by hoanglam on 7/31/16.
+ * Updated by kftse on 21/12/19.
  */
 public class ImagePickerActivity extends AppCompatActivity implements ImagePickerView {
 
@@ -230,7 +231,7 @@ public class ImagePickerActivity extends AppCompatActivity implements ImagePicke
 
     private void getData() {
         presenter.abortLoading();
-        presenter.loadImages(config.isFolderMode());
+        presenter.loadImages(config.isFolderMode(), config.isAcceptVideo());
     }
 
 

@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,10 @@ import java.util.List;
 public class FileHelper {
 
     private static final String TAG = "FileHelper";
+    // https://en.wikipedia.org/wiki/Comparison_of_video_container_formats
+    private static final List<String> videoExtensions = Arrays.asList("3gp", "3g2", "asf", "wmv", "avi",
+            "divx", "evo", "f4v", "flv", "mkv", "mk3d", "mp4", "mpg", "mpeg", "m2p", "ps", "ts",
+            "m2ts", "mxf", "ogg", "mov", "qt", "rmvb", "vob", "webm");
 
     public static File createVideoFile(SavePath savePath) {
         // External sdcard location
@@ -110,10 +115,8 @@ public class FileHelper {
         return images;
     }
 
-    public static boolean isGifFormat(Image image) {
+    public static boolean isVideoFormat(Image image) {
         String extension = image.getPath().substring(image.getPath().lastIndexOf(".") + 1);
-        return extension.equalsIgnoreCase("gif");
+        return videoExtensions.indexOf(extension.toLowerCase()) != -1;
     }
-
-
 }
