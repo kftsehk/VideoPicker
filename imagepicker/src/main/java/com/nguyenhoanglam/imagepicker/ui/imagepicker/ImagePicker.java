@@ -248,6 +248,7 @@ public class ImagePicker {
             config.setMultipleMode(true);
             config.setFolderMode(true);
             config.setShowCamera(true);
+            config.setAcceptImage(true);
             config.setMaxSize(Config.MAX_SIZE);
             config.setDoneTitle(resources.getString(R.string.imagepicker_action_done));
             config.setFolderTitle(resources.getString(R.string.imagepicker_title_folder));

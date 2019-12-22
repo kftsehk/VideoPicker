@@ -60,7 +60,7 @@ public class Config implements Parcelable {
     private int requestCode;
     private ArrayList<Image> selectedImages;
 
-    private final String UNSUPPORTED_OPERATION_CAMERA_ONLY_TWO_MEDIA_TYPE = "In camera only mode, only one media type can be accepted.";
+    private final String UNSUPPORTED_OPERATION_TWO_MEDIA_TYPE = "Only one media type can be accepted.";
 
     public Config() {
     }
@@ -162,7 +162,7 @@ public class Config implements Parcelable {
 
     public void setAcceptImage(boolean acceptImage) {
         if (acceptImage && isAcceptVideo)
-            throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_CAMERA_ONLY_TWO_MEDIA_TYPE);
+            throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_TWO_MEDIA_TYPE);
         isAcceptImage = acceptImage;
     }
 
@@ -172,7 +172,7 @@ public class Config implements Parcelable {
 
     public void setAcceptVideo(boolean acceptVideo) {
         if (acceptVideo && isAcceptImage)
-            throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_CAMERA_ONLY_TWO_MEDIA_TYPE);
+            throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_TWO_MEDIA_TYPE);
         isAcceptVideo = acceptVideo;
     }
 
